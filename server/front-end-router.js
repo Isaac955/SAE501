@@ -51,6 +51,21 @@ router.get("/contact(.html)?", routeName("contact"), async (req, res) => {
         list_articles: result.data,
     });
 });
+router.get("/sur-les-medias(.html)?", routeName("sur-les-medias"), async (req, res) => {
+    const queryParams = new URLSearchParams(req.query).toString();
+    const options = {
+        method: "GET",
+        url: `${res.locals.base_url}/api/contact?${queryParams}&is_active=true`,
+    };
+    let result = {};
+    try {
+        result = await axios(options);
+    } catch (_error) {}
+
+    res.render("pages/front-end/sur-les-medias.njk", {
+        list_articles: result.data,
+    });
+});
 // "(.html)?" makes ".html" optional in the url
 router.get("/a-propos(.html)?", routeName("about"), async (_req, res) => {
     const options = {
