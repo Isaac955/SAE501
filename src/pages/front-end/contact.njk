@@ -1,0 +1,32 @@
+{% extends "layouts/front-end/base.njk" %}
+
+{% block title %}Contact
+{% endblock %}
+{% block main %}
+        <form action="/api/contact" method="POST">
+            <div>
+                <label for="lastname">Nom de famille :</label>
+                <input type="text" id="lastname" name="lastname" required>
+            </div>
+
+            <div>
+                <label for="firstname">Prénom :</label>
+                <input type="text" id="firstname" name="firstname" required>
+            </div>
+
+            <div>
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div>
+                <label for="content">Message :</label>
+                <textarea id="content" name="content" rows="5" required></textarea>
+            </div>
+
+            <button type="submit">Envoyer</button>
+        </form>
+    </main>
+</body>
+</html>
+{% endblock %}
