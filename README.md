@@ -1,0 +1,3 @@
+# SAE 501 - Développer pour le web ou Concevoir un dispositif interactif
+
+Ce projet vise à développer un site dédié au BUT Métiers du Multimédia et de l'Internet (MMI) avec des technologies modernes : **Nunjucks**, **Vite**, **Express** ...
