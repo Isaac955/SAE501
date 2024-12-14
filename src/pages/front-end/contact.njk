@@ -2,34 +2,58 @@
 
 {% block title %}Contact
 {% endblock %}
+
 {% block main %}
-<main>
-    <form action="" method="" data-async-form>
+<main class="max-w-4xl px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Nous contacter en ligne</h1>
+    <form action="" method="" data-async-form class="space-y-6">
         <div>
-            <label for="lastname">Nom de famille :</label>
-            <input type="text" id="lastname" name="lastname" required>
-            <p data-error-message="lastname" class="hidden">Le nom de famille est requis.</p>
+            <label for="lastname" class="block text-lg font-medium text-gray-700">Nom de famille :</label>
+            <input type="text" id="lastname" name="lastname" required class="mt-2 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <p data-error-message="lastname" class="hidden text-red-500 text-sm mt-1">Le nom de famille est requis.</p>
         </div>
 
         <div>
-            <label for="firstname">Prénom :</label>
-            <input type="text" id="firstname" name="firstname" required>
-            <p data-error-message="firstname" class="hidden">Le prénom est requis.</p>
+            <label for="firstname" class="block text-lg font-medium text-gray-700">Prénom :</label>
+            <input type="text" id="firstname" name="firstname" required class="mt-2 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <p data-error-message="firstname" class="hidden text-red-500 text-sm mt-1">Le prénom est requis.</p>
         </div>
 
         <div>
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="email" required>
-            <p data-error-message="email" class="hidden">L'email est invalide.</p>
+            <label for="email" class="block text-lg font-medium text-gray-700">Email :</label>
+            <input type="email" id="email" name="email" required class="mt-2 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <p data-error-message="email" class="hidden text-red-500 text-sm mt-1">L'email est invalide.</p>
         </div>
 
         <div>
-            <label for="content">Message :</label>
-            <textarea id="content" name="content" rows="5" required></textarea>
-            <p data-error-message="content" class="hidden">Le message est requis.</p>
+            <label for="content" class="block text-lg font-medium text-gray-700">Message :</label>
+            <textarea id="content" name="content" rows="5" required class="mt-2 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+            <p data-error-message="content" class="hidden text-red-500 text-sm mt-1">Le message est requis.</p>
         </div>
 
-        <button type="submit">Envoyer</button>
+        <div>
+            <label class="block text-lg font-medium text-gray-700">Je suis :</label>
+            <div class="mt-2 space-y-2">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="role" value="none" class="form-radio text-indigo-600" checked>
+                    <span class="ml-2">Je ne souhaite pas préciser</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="role" value="student" class="form-radio text-indigo-600">
+                    <span class="ml-2">Étudiant/Étudiante</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="role" value="parent" class="form-radio text-indigo-600">
+                    <span class="ml-2">Parent</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" name="role" value="other" class="form-radio text-indigo-600">
+                    <span class="ml-2">Autre</span>
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" class="w-full py-2 bg-indigo-600 text-white font-bold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">ENVOYER</button>
     </form>
 </main>
 {% endblock %}
