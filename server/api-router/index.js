@@ -4,7 +4,8 @@ import SAERouter from "./sae.js";
 import ArticleRouter from "./article.js";
 import AuthorRouter from "./author.js";
 import ArticleCommentRouter from "./comment-article.js";
-import MessageRouter from "./msg.js";
+import MessageRouter from "./message-api.js";
+
 
 const router = express.Router();
 
