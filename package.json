@@ -9,6 +9,9 @@
     "build": "node ./vite.config.build.js",
     "lint": "npx eslint",
     "lint:fix": "npx eslint --fix"
+
+
+    
   },
   "devDependencies": {
     "@babel/code-frame": "^7.26.2",
