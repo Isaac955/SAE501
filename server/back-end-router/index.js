@@ -5,12 +5,15 @@ import querystring from "querystring";
 import routeName from "#server/utils/name-route.middleware.js";
 import parseManifest from "#server/utils/parse-manifest.js";
 
+
 // Routers
 import SAERouter from "./sae.js";
 import articleRouter from "./article.js";
 import messageRouter from "./message.js";
 
 const router = express.Router();
+
+
 
 router.use(async (_req, res, next) => {
     const originalRender = res.render;
