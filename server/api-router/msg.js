@@ -11,8 +11,7 @@ router.post(`/${base}`, async (req, res) => {
     try {
         await ressource.save();
         res.status(201).json(ressource);
-    }
-    catch (error) {
+    } catch (error) {
         res.status(400).json({
             errors: [
                 error,

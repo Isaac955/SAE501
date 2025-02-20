@@ -26,7 +26,6 @@ router.get(`/${base}`, async (req, res) => {
     res.render("pages/back-end/message/list.njk", {
         list_articles: result.data,
     });
-
 });
 
 export default router;
