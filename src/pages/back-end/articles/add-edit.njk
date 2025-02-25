@@ -2,14 +2,32 @@
 
 {% block title %}
     {% if is_edit == true %}
-        Editer "{{ sae.title }}"
+        Editer "{{ article.title }}"
     {% else %}
-        Créer SAÉ
+        Créer article
     {% endif %}
 {% endblock %}
 
-{% set chars_limit = 200 %}
-{% set active_menu_item = "saes" %}
+{% block styles %}
+    <link rel="stylesheet" href="/css/tom-select.default.css">
+{% endblock %}
+
+{% block javascript %}
+    <script src="/js/tom-select.complete.js"></script>
+    <script>
+        function updateCount() {
+            let textarea = document.getElementById("bio");
+            let count = document.getElementById("charCount");
+            count.textContent = textarea.maxLength - textarea.value.length;
+        }
+
+        var settings = {};
+        new TomSelect('#auteur',settings);
+    </script>
+{% endblock %}
+
+{% set chars_limit = 300 %}
+{% set active_menu_item = "articles" %}
 
 {% import "components/back-end/input-file.njk" as input_file with context %}
 
@@ -20,9 +38,9 @@
             <h2 class="text-4xl">
                 {% if is_edit == true %}
 					Editer
-					"{{ sae.title }}"
+					"{{ article.title }}"
 				{% else %}
-					Créer SAÉ
+					Créer article
 				{% endif %}
             </h2>
             <p class="text-sm">Les champs avec
@@ -40,24 +58,21 @@
             <form action="" data-form method="post" enctype="multipart/form-data">
                 <label class="block mb-4">
                     <span class="font-bold text-slate-700 after:content-['*'] after:ml-0.5 after:text-red-500">Titre</span>
-                    <input class="block bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" type="text" name="title" value="{{ sae.title }}"/>
+                    <input class="block bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" type="text" name="title" value="{{ article.title }}"/>
                 </label>
-
-                <div class="block mb-4">
+        <div class="block mb-4">
                     <label for="image">
-                        <span class="font-bold text-slate-700 after:ml-0.5 after:text-red-500">Image</span>
+                        <span class="font-bold text-slate-700 after:content-['*'] after:ml-0.5 after:text-red-500">Image</span>
                     </label>
-                    {{ input_file.field(sae.image, undefined, ".jpg, .jpeg, .png, .avif") }}
+                    {{ input_file.field(authors.image, undefined, ".jpg, .jpeg, .png, .avif") }}
                 </div>
-
                 <label class="block mb-4">
-                    <span class="font-bold text-slate-700">Contenu</span>
-                    <textarea name="content" cols="15" rows="5" maxlength="{{ chars_limit }}" class="block bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" aria-describedby="counter_description">{{ sae.content }}</textarea>
+                    <span class="font-bold text-slate-700 after:content-['*'] after:ml-0.5 after:text-red-500">Contenu</span>
+                    <textarea name="content" cols="15" rows="5" maxlength="{{ chars_limit }}" class="block bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" aria-describedby="counter_description" oninput="updateCount()" id="content">{{ article.content }}</textarea>
                     <p class="text-sm" id="counter_description">
-						{{ chars_limit }} caractères restants
+						<span id="charCount">{{ chars_limit }}</span> caractères restants
 					</p>
                 </label>
-
                 <div class="flex gap-x-3 gap-y-5 flex-col sm:flex-row">
                     <button class="px-4 py-2 font-semibold text-sm bg-blue-700 hocus:bg-blue-950 text-white rounded-2xl shadow-sm inline-flex gap-1 items-center justify-center" type="submit">
                         <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

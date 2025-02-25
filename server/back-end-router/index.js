@@ -49,6 +49,7 @@ router.get("/", routeName("admin"), async (req, res) => {
     };
     const listArticles = await axios(optionsArticles);
 
+
     res.render("pages/back-end/index.njk", {
         list_saes: {
             data: listSAEs.data.data,

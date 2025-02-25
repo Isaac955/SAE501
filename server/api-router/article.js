@@ -7,6 +7,7 @@ import Author from "#models/author.js";
 
 import upload, { uploadImage, deleteUpload } from "#server/uploader.js";
 import mongoose from "mongoose";
+import routeName from "#server/utils/name-route.middleware.js";
 
 const router = express.Router();
 
@@ -76,7 +77,7 @@ const base = "articles";
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get(`/${base}`, async (req, res) => {
+router.get(`/${base}`, routeName("article_api"), async (req, res) => {
     const page = Math.max(1, Number(req.query.page) || 1);
     let perPage = Number(req.query.per_page) || 7;
     perPage = Math.min(Math.max(perPage, 1), 20);
@@ -164,7 +165,7 @@ router.get(`/${base}`, async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.get([`/${base}/:id([a-f0-9]{24})`, `/${base}/:slug([\\w\\d\\-]+\\-[a-f0-9]{24})`], async (req, res) => {
+router.get([`/${base}/:id([a-f0-9]{24})`, `/${base}/:slug([\\w\\d\\-]+\\-[a-f0-9]{24})`], routeName("article_api"), async (req, res) => {
     try {
         const id = req.params.id ? mongoose.Types.ObjectId.createFromHexString(req.params.id) : req.params.slug;
         const [ressource] = await getArticles(id);
@@ -234,7 +235,7 @@ router.get([`/${base}/:id([a-f0-9]{24})`, `/${base}/:slug([\\w\\d\\-]+\\-[a-f0-9
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post(`/${base}`, upload.single("image"), async (req, res) => {
+router.post(`/${base}`, routeName("article_api"), upload.single("image"), async (req, res) => {
     let imagePayload = {};
     let listErrors = [];
     let targetPath = undefined;
@@ -247,7 +248,7 @@ router.post(`/${base}`, upload.single("image"), async (req, res) => {
             image_path: targetPath,
             errors: listErrors,
             image_name: imageName,
-        } = uploadImage(uploadedImage, res.locals.upload_path));
+        } = await uploadImage(uploadedImage, res.locals.upload_path));
         imagePayload = { image: imageName };
     }
 
@@ -346,7 +347,7 @@ router.post(`/${base}`, upload.single("image"), async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.put([`/${base}/:id([a-f0-9]{24})`, `/${base}/:slug([\\w\\d\\-]+\\-[a-f0-9]{24})`], upload.single("image"), async (req, res) => {
+router.put([`/${base}/:id([a-f0-9]{24})`, `/${base}/:slug([\\w\\d\\-]+\\-[a-f0-9]{24})`], routeName("article_api"), upload.single("image"), async (req, res) => {
     let imagePayload = {};
     let listErrors = [];
     let targetPath = undefined;
@@ -361,7 +362,7 @@ router.put([`/${base}/:id([a-f0-9]{24})`, `/${base}/:slug([\\w\\d\\-]+\\-[a-f0-9
             image_path: targetPath,
             errors: listErrors,
             image_name: imageName,
-        } = uploadImage(uploadedImage, res.locals.upload_path));
+        } = await uploadImage(uploadedImage, res.locals.upload_path));
         imagePayload = { image: imageName };
     }
 
@@ -473,7 +474,7 @@ router.put([`/${base}/:id([a-f0-9]{24})`, `/${base}/:slug([\\w\\d\\-]+\\-[a-f0-9
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.delete([`/${base}/:id([a-f0-9]{24})`, `/${base}/:slug([\\w\\d\\-]+\\-[a-f0-9]{24})`], async (req, res) => {
+router.delete([`/${base}/:id([a-f0-9]{24})`, `/${base}/:slug([\\w\\d\\-]+\\-[a-f0-9]{24})`], routeName("article_api"), async (req, res) => {
     try {
         const searchKey = req.params.id ? "_id" : "slug";
         const searchParam = req.params?.id || req.params.slug;

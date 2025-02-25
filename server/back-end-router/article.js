@@ -4,12 +4,13 @@ import mongoose from "mongoose";
 import querystring from "querystring";
 
 import upload from "#server/uploader.js";
+import routeName from "#server/utils/name-route.middleware.js";
 
 const base = "articles";
 const router = express.Router();
 
 // Get multiple articles
-router.get(`/${base}`, async (req, res) => {
+router.get(`/${base}`, routeName("articles_list"), async (req, res) => {
     const queryParams = querystring.stringify(req.query);
     const options = {
         method: "GET",
@@ -26,7 +27,7 @@ router.get(`/${base}`, async (req, res) => {
 });
 
 // Get or create article
-router.get([`/${base}/:id`, `/${base}/add`], async (req, res) => {
+router.get([`/${base}/:id`, `/${base}/add`], routeName("articles_form"), async (req, res) => {
     const isEdit = req.params.id !== "add";
 
     let result = {};
@@ -44,7 +45,7 @@ router.get([`/${base}/:id`, `/${base}/add`], async (req, res) => {
         listErrors = error.response.data.errors;
     }
 
-    res.render("pages/back-end/add articles/edit.njk", {
+    res.render("pages/back-end/articles/add-edit.njk", {
         article: result?.data || {},
         list_errors: listErrors,
         is_edit: isEdit,
@@ -52,7 +53,7 @@ router.get([`/${base}/:id`, `/${base}/add`], async (req, res) => {
 });
 
 // Create or update article
-router.post([`/${base}/:id`, `/${base}/add`], upload.single("image"), async (req, res) => {
+router.post([`/${base}/:id`, `/${base}/add`], routeName("articles_form"), upload.single("image"), async (req, res) => {
     let ressource = {};
 
     const isEdit = mongoose.Types.ObjectId.isValid(req.params.id);
@@ -98,7 +99,7 @@ router.post([`/${base}/:id`, `/${base}/add`], upload.single("image"), async (req
         ressource = e.response.data.ressource || {};
     } finally {
         if (listErrors.length || isEdit) {
-            res.render("", {
+            res.render("pages/back-end/articles/add-edit.njk", {
                 article: ressource,
                 list_errors: listErrors,
                 list_authors: listAuthors,
