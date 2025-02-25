@@ -230,7 +230,7 @@ if (!hasEnvFile) {
 
 app.use(`/admin${envVars.parsed?.ADMIN_SUFFIX || ""}`, breadcrumb, backendRouter);
 app.use("/api", apiRouter);
-app.use(frontendRouter);
+app.use(frontendRouter); 
 
 if (process.env.NODE_ENV === "development") {
     const options = {

@@ -22,6 +22,7 @@ export default {
             },
             containers: {
                 "5.5xl": "69rem",
+                "3xl": "80rem",
             },
             transitionProperty: {
                 "dialog": "background-color box-shadow"
