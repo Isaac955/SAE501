@@ -230,7 +230,7 @@ if (!hasEnvFile) {
 
 app.use(`/admin${envVars.parsed?.ADMIN_SUFFIX || ""}`, breadcrumb, backendRouter);
 app.use("/api", apiRouter);
-app.use(frontendRouter);
+app.use(frontendRouter); 
 
 if (process.env.NODE_ENV === "development") {
     const options = {
@@ -258,7 +258,7 @@ if (process.env.NODE_ENV === "development") {
         next();
     });
 
-    const swaggerUi = await import("swagger-ui-express")
+    const swaggerUi = await import("swagger-ui-express");
     const swaggerSpec = await import("./swagger.js");
 
     app.use(["/swagger", "/api-docs"], swaggerUi.serve, swaggerUi.setup(swaggerSpec.default, options));

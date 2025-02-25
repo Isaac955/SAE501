@@ -1,0 +1,38 @@
+{% extends "layouts/back-end/base.njk" %}
+{% set active_menu_item = "articles" %}
+{% set using_asc = query_string_params.sorting == "asc" %}
+{% set sort_param = "desc" if using_asc == true else "asc" %}
+{% set sort_text = "Trier du plus récent au plus ancien" if using_asc == true else "Trier du plus ancien au plus récent" %}
+
+{% import "components/back-end/pagination.njk" as pagination with context %}
+{% import "scripts/back-end/themes.js" as themes_colors %}
+
+{% block main %}
+{{list_articles | dump }}
+    <div class="bg-white rounded-2xl shadow-md pb-6">
+        <header class="mb-1 p-6 gap-2 @3xl/main:gap-0 flex justify-between @3xl/main:flex-row flex-col">
+            <div>
+                {% include "components/back-end/breadcrumb.njk" %}
+                <h2 class="text-4xl">
+                    Divers
+                </h2>
+                <br>
+                <p>Changer de thèmes ci-dessous :</p>
+                <br>
+                <p>Changer le logo du footer ci-dessous :</p>
+                <br>
+                <p>Modifier la date des JPO ci-dessous :</p>
+            </div>
+            
+        </header>
+
+        <div class="tooltip hidden bg-slate-800 text-white border border-gray-200 border-solid py-2 px-4 rounded-2xl" data-tooltip="sort">
+            <p class="text-sm">{{ sort_text }}</p>
+        </div>
+
+        
+        <footer class="flex justify-between px-4 flex-col @3xl/main:flex-row relative items-center">
+            {{ pagination.item(list_articles) }}
+        </footer>
+    </div>
+{% endblock %}

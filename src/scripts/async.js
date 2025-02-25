@@ -1,4 +1,4 @@
-import validator from "validator"
+import validator from "validator";
 
 const submitForm = (e) => {
     e.preventDefault();
@@ -8,13 +8,13 @@ const submitForm = (e) => {
 
     console.log(formValues);
 
-    if(validator.isEmpty(formValues.lastname.trim())){
+    if (validator.isEmpty(formValues.lastname.trim())) {
         document.querySelector("[data-error-message='lastname']").classList.remove("hidden");
-        //Display error message
+        // Display error message
         return;
     }
-}
+}; 
 
 document.querySelctorAll("[data-async-form]").forEach((item) => {
-    item.addEventListener("submit", submitForm)
-})
+    item.addEventListener("submit", submitForm);
+});

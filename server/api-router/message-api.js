@@ -51,7 +51,6 @@ const base = "messages";
  *               $ref: '#/components/schemas/Error'
  */
 router.post(`/${base}`, async (req, res) => {
-
     console.log(req.body);
     const ressource = new Message(req.body);
 
