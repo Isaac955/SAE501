@@ -32,7 +32,7 @@ router.get("/", routeName("homepage"), async (req, res) => {
     } catch (_error) {}
 
     res.render("pages/front-end/index.njk", {
-        list_articles: result.data,
+        list_articles: result.data.data,
     });
 });
 
@@ -53,20 +53,107 @@ router.get("/a-propos(.html)?", routeName("about"), async (_req, res) => {
     });
 });
 
-router.get("/contact(.html)?", routeName("contact"), async (_req, res) => {
-    res.render("pages/front-end/contact.njk", {});
+router.get("/contact(.html)?", async (req, res) => {
+    res.render("pages/front-end/contact.njk", {
+    });
 });
 
-router.get("/sur-les-medias(.html)?", routeName("media"), async (_req, res) => {
-    res.render("pages/front-end/media.njk", {});
+router.get("/lieux(.html)?", async (req, res) => {
+    res.render("pages/front-end/lieux.njk", {
+    });
 });
 
-router.get("/auteur(.html)?", routeName("auteur"), async (_req, res) => {
-    res.render("pages/front-end/auteur.njk", {});
+router.get("/sur-les-medias(.html)?", async (req, res) => {
+    res.render("pages/front-end/sur-les-medias.njk", {
+    });
 });
 
-router.get("/lieux-de-vie(.html)?", routeName("lieux"), async (_req, res) => {
-    res.render("pages/front-end/lieux.njk", {});
+router.get("/author(.html)?", async (req, res) => {
+    res.render("pages/front-end/author.njk", {
+    });
 });
+
+router.get("/author(.html)?", async (req, res) => {
+    res.render("pages/front-end/author.njk", {
+    });
+});
+
+router.get("/article/:id", async (req, res) => {
+    const optionsArticle = {
+        method: "GET",
+        url: `${res.locals.base_url}/api/articles/${req.params.id}`,
+    };
+    const optionsComment = {
+        method: "GET",
+        url: `${res.locals.base_url}/api/articles/${req.params.id}/comments`,
+    };
+
+    let resultArticle = {};
+    let resultComment = {};
+    try {
+        resultArticle = await axios(optionsArticle);
+        resultComment = await axios(optionsComment);
+    } catch (_error) {}
+
+    res.render("pages/front-end/article.njk", {
+        article: resultArticle.data,
+        comments: resultComment.data,
+    });
+});
+
+router.post("/article/:id/comments", async (req, res) => {
+    try {
+        const response = await axios.post(
+            `${res.locals.base_url}/api/articles/${req.params.id}/comments`,
+            req.body,
+            { headers: { "Content-Type": "application/json" } }
+        );
+
+        req.flash("success", "Votre commentaire a été posté.");
+        return res.json({ message: response.data });
+    } catch (error) {
+        const listErrors = error.response?.data?.errors || ["Votre commentaire comporte une erreur"];
+        res.render("pages/front-end/article.njk", { list_errors: listErrors });
+    }
+});
+
+
+router.get("/author/:id", async (req, res) => {
+    const options = {
+        method: "GET",
+        url: `${res.locals.base_url}/api/authors/${req.params.id}`,
+    };
+
+    let result = {};
+    try {
+        result = await axios(options);
+    } catch (_error) {}
+
+    res.render("pages/front-end/author.njk", {
+        author: result.data,
+    });
+});
+
+router.post("/nous-contacter(.html)?", async (req, res) => {
+    try {
+        // Envoi asynchrone des données au endpoint API
+        const response = await axios.post(
+            `${res.locals.base_url}/api/messages`,
+            req.body,
+            { headers: { "Content-Type": "application/json" } }
+        );
+        
+        req.flash(
+            "success",
+            "Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais."
+        );
+        
+        return res.json({ message: response.data });
+    } catch (error) {
+        const listErrors = error.response?.data?.errors || ["Erreur lors de l'envoi du message"];
+        res.render("pages/front-end/contact.njk", { list_errors: listErrors });
+    }
+});
+
 
 export default router;
