@@ -46,7 +46,7 @@
              
 
      <figure class="logo flex justify-center items-center mb-6">
-    <img src="/images/logo-cyu-couleur.svg" alt="Logo CY Cergy Paris Université" class="max-w-full h-auto">
+    <img href="/server/uploader.js" alt="Logo CY Cergy Paris Université" class="max-w-full h-auto">
 </figure>
     <ul class="flex justify-center space-x-6 mb-4">
         <li>
@@ -67,6 +67,12 @@
     </ul>
     <p class="text-center text-sm">SAE 501 • © 2024 - BUT MMI - CY Paris Université - Site de Sarcelles</p>
 </footer>
+
+    <script>
+        
+        import { logoPath } from "/src/scripts/uploader.js";
+        document.getElementById("footer-logo").src = logoPath; 
+    </script>
 
     </body>
 </html>

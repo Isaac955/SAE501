@@ -9,7 +9,7 @@ import parseManifest from "#server/utils/parse-manifest.js";
 // Routers
 import SAERouter from "./sae.js";
 import articleRouter from "./article.js";
-import messageRouter from "./message.js";
+import messageRouter from "./messages.js";
 import diversRouter from "./divers.js";
 
 const router = express.Router();
