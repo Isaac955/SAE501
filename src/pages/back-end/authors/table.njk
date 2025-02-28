@@ -1,0 +1,35 @@
+{% macro table(list) %}
+                <table class="min-w-full table-auto">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 border-b">Nom</th>
+                        <th class="px-4 py-2 border-b">Prénom</th>
+                        <th class="px-4 py-2 border-b">Email</th>
+                        <th class="px-4 py-2 border-b">Image</th>
+                        <th class="px-4 py-2 border-b">Bio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in list.data %}
+                        <tr>
+                            <td class="px-4 py-2 border-b">{{ item.lastname }}</td>
+                            <td class="px-4 py-2 border-b">{{ item.firstname }}</td>
+                            <td class="px-4 py-2 border-b">{{ item.email }}</td>
+                            <td class="px-4 py-2 border-b">
+                                {% if item.image %}
+                                    <img src="{{ item.image }}" alt="Image de {{ item.firstname }} {{ item.lastname }}" class="w-12 h-12 object-cover rounded-full"/>
+                                {% else %}
+                                    Pas d'image
+                                {% endif %}
+                            </td>
+                            <td class="px-4 py-2 border-b">
+                                <div> 
+                                {#{{ list_actions.edit('author_form' | routeName({ id: item._id })) }}#}
+                                {#{{ list_actions.delete('author_api' | routeName({ id: item._id }), item.lastname) }}#}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+{% endmacro %}

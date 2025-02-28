@@ -6,7 +6,7 @@ import routeName from "#server/utils/name-route.middleware.js";
 
 import upload from "#server/uploader.js";
 
-const base = "author";
+const base = "authors";
 const router = express.Router();
 
 // Get or create author
@@ -22,7 +22,7 @@ router.get(`/${base}`, routeName("author_list"), async (req, res) => {
         result = await axios(options);
     } catch (_error) {}
 
-    res.render("pages/back-end/author/list.njk", {
+    res.render("pages/back-end/authors/list.njk", {
         list_author: result.data,
     });
 });
@@ -47,7 +47,7 @@ router
             }
         }
 
-        res.render("pages/back-end/author/add-edit.njk", {
+        res.render("pages/back-end/authors/add-edit.njk", {
             author: result?.data || {},
             list_errors: listErrors,
             is_edit: isEdit,
@@ -96,7 +96,7 @@ router
                 );
             }
             if (isEdit || listErrors.length) {
-                res.render("pages/back-end/author/add-edit.njk", {
+                res.render("pages/back-end/authors/add-edit.njk", {
                     author: ressource,
                     list_errors: listErrors,
                     is_edit: isEdit,
@@ -108,7 +108,7 @@ router
     });
 
 router.get("/auteurs", (req, res) => {
-    res.render("pages/back-end/author/list.njk"); 
+    res.render("pages/back-end/authors/list.njk"); 
 });   
 
 export default router;
