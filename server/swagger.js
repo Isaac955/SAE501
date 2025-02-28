@@ -4,11 +4,8 @@ import swaggerJSDoc from "swagger-jsdoc";
 
 // Doc : https://swagger.io/docs/specification/data-models/data-types/
 // Doc : https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md
-import listArticles, { article } from "./swagger-schemas/article.js";
-import listCommentsArticle, { commentArticle } from "./swagger-schemas/comment-article.js";
-import listSAEs, { sae } from "./swagger-schemas/sae.js";
-import listAuthors, { author } from "./swagger-schemas/author.js";
 
+import ListMessages, { messages } from "./swagger-schemas/messages.js";
 import packageJSON from "../package.json" with { "type": "json" };
 
 const envFilePath = "env/.env.dev.local";
@@ -33,14 +30,8 @@ const options = {
         servers: [{ description: "Dev server", url: `http://localhost:${port}/api` }],
         components: {
             schemas: {
-                Article: article,
-                ListArticles: listArticles,
-                CommentArticle: commentArticle,
-                ListCommentsArticle: listCommentsArticle,
-                ListSAEs: listSAEs,
-                SAE: sae,
-                ListAuthors: listAuthors,
-                Author: author,
+                ListMessages:ListMessages,
+                Messages: messages,
                 Error: {
                     type: "object",
                     properties: {
