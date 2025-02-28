@@ -31,7 +31,7 @@ const authorSchema = new Schema({
     },
     image: {
         type: String,
-        required: [true, "Image obligatoire"],
+        required: false,
     },
     bio: {
         type: String,
@@ -39,7 +39,7 @@ const authorSchema = new Schema({
             300,
             'Le champ "bio" ne peut pas dépasser 300 caractères',
         ],
-        trim: true,
+        trim: false,
     },
     color: {
         type: String,
