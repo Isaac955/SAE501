@@ -60,7 +60,10 @@
                     <span class="font-bold text-slate-700 after:content-['*'] after:ml-0.5 after:text-red-500">Titre</span>
                     <input class="block bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" type="text" name="title" value="{{ article.title }}"/>
                 </label>
-
+                  <label class="block mb-4">
+                    <span class="font-bold text-slate-700 after:ml-0.5 after:text-red-500">Chapô</span>
+                    <input class="block bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" type="text" name="abstract" value="{{ article.abstract }}"/>
+                </label>
                 <label class="block mb-4">
                     <span class="font-bold text-slate-700 after:content-['*'] after:ml-0.5 after:text-red-500">Contenu</span>
                     <textarea name="content" cols="15" rows="5" maxlength="{{ chars_limit }}" class="block bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" aria-describedby="counter_description" oninput="updateCount()" id="content">{{ article.content }}</textarea>
@@ -75,7 +78,10 @@
                     </label>
                     {{ input_file.field(authors.image, undefined, ".jpg, .jpeg, .png, .avif") }}
                 </div>
-
+                 <label class="block mb-4">
+                    <span class="font-bold text-slate-700 after:ml-0.5 after:text-red-500">Vidéo YouTube</span>
+                    <input class="block bg-white w-full border border-slate-300 rounded-md py-2 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" type="text" name="yt_video_id" value="{{ article.yt_video_id }}"/>
+                </label>
             
 
                 <div class="flex gap-x-3 gap-y-5 flex-col sm:flex-row">
