@@ -17,9 +17,10 @@ router.use(MessageRouter);
 router.all("*", (req, res) => {
     res.status(404).json({
         errors: [
-            `La route "${req.path}" n'existe pas`,
+            `Erreur 404. La route "${req.path}" n'existe pas`,
         ],
     });
 });
+
 
 export default router;

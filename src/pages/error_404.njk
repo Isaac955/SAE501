@@ -1,0 +1,15 @@
+{% extends "layouts/front-end/base.njk" %}
+{% block title %}Page non trouvée - Erreur 404{% endblock %}
+
+{% block main %}
+    <div class="flex flex-col items-center justify-center h-screen text-center bg-white text-gray-900">
+        <h1 class="text-4xl font-semibold mb-4">Erreur 404 ! La page est introuvable</h1>
+        <p class="text-xl mb-6">Il semble que la page que vous cherchez n'existe plus ou a été déplacée.</p>
+        <p class="text-lg mb-8">Pas de panique, vous pouvez retourner à la page d'accueil ou explorer nos autres sections.</p>
+        <div>
+            <a href="/" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-6 py-3 transition-all duration-200">
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+{% endblock %}

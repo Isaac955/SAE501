@@ -444,6 +444,9 @@ if (process.env.NODE_ENV === "production") {
 const listDomains = [hostip, "::"];
 const port = envVars?.parsed?.PORT || 3900;
 
+app.get("*", (req, res) => {
+    res.status(404).render("pages/error_404.njk");
+});
 app.listen(port, listDomains, () => {
     console.log("---------------------------");
     console.log(
