@@ -9,7 +9,7 @@ import routeName from "#server/utils/name-route.middleware.js";
 import upload, { uploadImage, deleteUpload } from "#server/uploader.js";
 
 const router = express.Router();
-const base = "author";
+const base = "authors";
 
 
 /**
