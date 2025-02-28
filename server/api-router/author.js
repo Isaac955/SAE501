@@ -294,7 +294,7 @@ router.post(`/${base}`, routeName("author_api"), upload.single("image"), async (
             image_path: targetPath,
             errors: listErrors,
             image_name: imageName,
-        } = uploadImage(uploadedImage, res.locals.upload_path));
+        } = await uploadImage(uploadedImage, res.locals.upload_path));
         imagePayload = { image: imageName };
     }
 
@@ -391,7 +391,7 @@ router.put(`/${base}/:id([a-f0-9]{24})`, routeName("author_api"), upload.single(
             image_path: targetPath,
             errors: listErrors,
             image_name: imageName,
-        } = uploadImage(uploadedImage, res.locals.upload_path));
+        } = await uploadImage(uploadedImage, res.locals.upload_path));
         imagePayload = { image: imageName };
     }
 
