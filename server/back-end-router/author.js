@@ -107,10 +107,8 @@ router
         }
     });
 
-router.get("/auteurs", (req, res) => {
-// Récupérer la liste des auteurs depuis la base de données 
-    res.render("pages/back-end/author/list.njk"); 
+router.get('/auteurs', (req, res) => {
+    res.render('pages/back-end/author/list.njk'); 
 });   
-
 
 export default router;

@@ -50,14 +50,12 @@ router.get("/", routeName("admin"), async (req, res) => {
         url: `${res.locals.base_url}/api/articles?${queryParamsArticles}`,
     };
     const listArticles = await axios(optionsArticles);
-
-    // Récupération des auteurs 
+ 
     const queryParamsAuthors = querystring.stringify({ per_page: 5 });
     const optionsAuthors = {
         method: "GET",
         url: `${res.locals.base_url}/api/authors?${queryParamsAuthors}`,
     };
-
     const listAuthors = await axios(optionsAuthors);
 
     res.render("pages/back-end/index.njk", {
