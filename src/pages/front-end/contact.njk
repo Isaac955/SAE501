@@ -3,10 +3,41 @@
 {% block title %}Contact
 {% endblock %}
 
+{% block javascript %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        function contactSubmit(e) {
+            e = e || window.event;
+            e.preventDefault();
+            var form = e.target.form;
+            var data = {
+               firstname: form.firstname.value,
+               lastname: form.lastname.value,
+               email: form.email.value,
+               content: form.content.value,
+               role: form.role.value,
+            };
+
+            axios.post(
+                '/nous-contacter',
+                data,
+                {headers: {"Content-Type": "application/json"}}
+            );
+
+            var element = document.getElementById("contact-message");
+            element.classList.remove("hidden");
+        }
+    </script>
+{% endblock %}
+
+
 {% block main %}
 <main class="max-w-4xl px-4 py-8">
     <h1 class="text-3xl font-bold mb-6">Nous contacter en ligne</h1>
-    <form action="/nous-contacter" method="post" data-async-form class="space-y-6">
+
+    <p class="hidden text-green-600" id="contact-message">message est envoyé</p>
+
+    <form data-async-form class="space-y-6" id="contact-form">
         <div>
             <label for="lastname" class="block text-lg font-medium text-gray-700">Nom de famille :</label>
             <input type="text" id="lastname" name="lastname" required class="mt-2 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -52,9 +83,8 @@
                 </label>
             </div>
         </div>
-        
 
-        <button type="submit" class="w-full py-2 bg-indigo-600 text-white font-bold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">ENVOYER</button>
+        <button type="button" onclick="contactSubmit()" class="w-full py-2 bg-indigo-600 text-white font-bold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">ENVOYER</button>
     </form>
 </main>
 

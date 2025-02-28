@@ -69,11 +69,13 @@ router.get(`/${base}/:id([a-f0-9]{24})`, routeName("messages_api"), async (req, 
  */
 // filepath: /c:/Users/taoem/Documents/SAE501/server/api-router/messages.js
 router.post(`/${base}`, routeName("messages_api"), async (req, res) => {
+    console.log(req.body);
     try {
         const message = new Message(req.body);
         await message.save();
         res.status(201).json(message);
     } catch (error) {
+        console.log(error);
         res.status(400).json({
             errors: [
                 ...Object.values(
