@@ -51,28 +51,29 @@ router.get("/", routeName("admin"), async (req, res) => {
     };
     const listArticles = await axios(optionsArticles);
 
-// Récupération des auteurs 
-const queryParamsAuthors = querystring.stringify({ per_page: 5 });
-const optionsAuthors = {
-    method: "GET",
-    url: `${res.locals.base_url}/api/authors?${queryParamsAuthors}`,
-};
-const listAuthors = await axios(optionsAuthors);
+    // Récupération des auteurs 
+    const queryParamsAuthors = querystring.stringify({ per_page: 5 });
+    const optionsAuthors = {
+        method: "GET",
+        url: `${res.locals.base_url}/api/authors?${queryParamsAuthors}`,
+    };
 
-res.render("pages/back-end/index.njk", {
-    list_saes: {
-        data: listSAEs.data.data,
-        count: listSAEs.data.count,
-    },
-    list_articles: {
-        data: listArticles.data.data,
-        count: listArticles.data.count,
-    },
-    list_author: {
-        data: listAuthors.data.data, 
-        count: listAuthors.data.count, 
-    }
-});
+    const listAuthors = await axios(optionsAuthors);
+
+    res.render("pages/back-end/index.njk", {
+        list_saes: {
+            data: listSAEs.data.data,
+            count: listSAEs.data.count,
+        },
+        list_articles: {
+            data: listArticles.data.data,
+            count: listArticles.data.count,
+        },
+        list_author: {
+            data: listAuthors.data.data, 
+            count: listAuthors.data.count, 
+        },
+    });
 });
 
 export default router;
