@@ -135,6 +135,7 @@ router.get("/author/:id", async (req, res) => {
 });
 
 router.post("/nous-contacter(.html)?", async (req, res) => {
+    console.log(req.body);
     try {
         // Envoi asynchrone des données au endpoint API
         const response = await axios.post(

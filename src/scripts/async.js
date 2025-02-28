@@ -6,7 +6,7 @@ const submitForm = async (e) => {
     // Récupérer les données du formulaire sous forme d'objet
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData);
-
+    console.log("toto");
     console.log(formValues); // Affiche les valeurs du formulaire dans la console
 
     // Validation du champ "lastname"
