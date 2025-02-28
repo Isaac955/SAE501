@@ -4,12 +4,13 @@ import mongoose from "mongoose";
 import querystring from "querystring";
 
 import Author from "#models/author.js";
+import routeName from "#server/utils/name-route.middleware.js";
 
 import upload, { uploadImage, deleteUpload } from "#server/uploader.js";
 
 const router = express.Router();
+const base = "author";
 
-const base = "authors";
 
 /**
  * @openapi
@@ -55,7 +56,7 @@ const base = "authors";
  *            schema:
  *              $ref: '#/components/schemas/Error'
  */
-router.get(`/${base}`, async (req, res) => {
+router.get(`/${base}`, routeName("author_api"), async (req, res) => {
     const page = Math.max(1, Number(req.query.page) || 1);
     const perPage = Number(req.query.per_page);
 
@@ -159,7 +160,7 @@ router.get(`/${base}`, async (req, res) => {
  *            schema:
  *              $ref: '#/components/schemas/Error'
  */
-router.get(`/${base}/:id([a-f0-9]{24})`, async (req, res) => {
+router.get(`/${base}/:id([a-f0-9]{24})`, routeName("author_api"), async (req, res) => {
     const page = Math.max(1, Number(req.query.page) || 1);
     let perPage = Number(req.query.per_page) || 7;
     perPage = Math.min(Math.max(perPage, 1), 20);
@@ -280,7 +281,7 @@ router.get(`/${base}/:id([a-f0-9]{24})`, async (req, res) => {
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-router.post(`/${base}`, upload.single("image"), async (req, res) => {
+router.post(`/${base}`, routeName("author_api"), upload.single("image"), async (req, res) => {
     let imagePayload = {};
     let listErrors = [];
     let targetPath = undefined;
@@ -377,7 +378,7 @@ router.post(`/${base}`, upload.single("image"), async (req, res) => {
  *            schema:
  *              $ref: '#/components/schemas/Error'
  */
-router.put(`/${base}/:id([a-f0-9]{24})`, upload.single("image"), async (req, res) => {
+router.put(`/${base}/:id([a-f0-9]{24})`, routeName("author_api"), upload.single("image"), async (req, res) => {
     let imagePayload = {};
     let listErrors = [];
     let targetPath = undefined;
@@ -483,7 +484,7 @@ router.put(`/${base}/:id([a-f0-9]{24})`, upload.single("image"), async (req, res
  *            schema:
  *              $ref: '#/components/schemas/Error'
  */
-router.delete(`/${base}/:id([a-f0-9]{24})`, async (req, res) => {
+router.delete(`/${base}/:id([a-f0-9]{24})`, routeName("author_api"), async (req, res) => {
     try {
         const ressource = await Author.findByIdAndDelete(req.params.id);
 
