@@ -19,6 +19,22 @@
                 <br>
                 <p>Changer de thèmes ci-dessous :</p>
                 <br>
+                <div class="text-center mt-4">
+                    <label for="backgroundGradient" class="block mb-2 font-bold">Choisir un fond en dégradé :</label>
+                    <select id="backgroundGradient" class="border p-2 rounded-md">
+                    <option value="bg-gradient-to-b from-gray-500 to-gray-200">Gris foncé → Gris clair</option>
+                    <option value="bg-gradient-to-b from-green-500 to-green-200">Vert foncé → Vert clair</option>
+                    <option value="bg-gradient-to-b from-red-500 to-red-200">Rouge foncé → Rouge clair</option>
+                    <option value="bg-gradient-to-b from-purple-500 to-purple-200">Violet foncé → Violet clair</option>
+                    <option value="bg-gradient-to-b from-yellow-500 to-yellow-200">Jaune foncé → Jaune clair</option>
+
+                    </select>
+                    <button onclick="changeGradient()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition mt-2">
+                        Appliquer
+                    </button>
+                </div>
+
+                <br>
                   <h1>Modifier le logo du footer</h1>
                 <br>
                     <form id="uploadForm" enctype="multipart/form-data">
@@ -42,7 +58,38 @@
             <p class="text-sm">{{ sort_text }}</p>
         </div>
 
-        
+        <script>
+           document.addEventListener("DOMContentLoaded", function () {
+                const select = document.getElementById("backgroundGradient");
+                const background = document.getElementById("backgroundDiv");
+
+                if (!background) {
+                    console.error(" ERREUR : L'élément du fond n'a pas été trouvé !");
+                    return;
+                }
+
+                // Vérifie si un dégradé est stocké dans localStorage
+                const savedGradient = localStorage.getItem("adminGradient");
+                if (savedGradient) {
+                    console.log(" Dégradé chargé :", savedGradient);
+
+                    // Ajoute une pause pour s'assurer que le DOM est bien prêt
+                    setTimeout(() => {
+                        background.className = "absolute w-full min-h-screen z-[-1] " + savedGradient;
+                    }, 100);
+                    
+                    select.value = savedGradient;
+                }
+
+                window.changeGradient = function () {
+                    console.log(" Changement du fond :", select.value);
+                    background.className = "absolute w-full min-h-screen z-[-1] " + select.value;
+
+                    // Sauvegarde la nouvelle couleur
+                    localStorage.setItem("adminGradient", select.value);
+                };
+            });
+            </script>
         <footer class="flex justify-between px-4 flex-col @3xl/main:flex-row relative items-center">
             {{ pagination.item(list_articles) }}
         </footer>
